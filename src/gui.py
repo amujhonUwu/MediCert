@@ -20,6 +20,8 @@ class CertificateApp(wx.Frame):
         st1.SetFont(wx.Font(10, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD))
         hbox1.Add(st1, flag=wx.RIGHT, border=8)
         self.date = wx.TextCtrl(panel, style=wx.BORDER_SUNKEN)
+        self.date.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
+        self.date.SetMinSize((400, 30))
         self.date.SetMinSize((300, -1))
         self.date.SetValue(datetime.now().strftime("%d/%m/%Y"))
         hbox1.Add(self.date, proportion=1, flag=wx.ALL, border=5)
@@ -30,6 +32,7 @@ class CertificateApp(wx.Frame):
         st2 = wx.StaticText(panel, label='Nombre del Paciente:')
         hbox2.Add(st2, flag=wx.RIGHT, border=8)
         self.patient_name = wx.TextCtrl(panel, style=wx.BORDER_SUNKEN|wx.TE_LEFT)
+        self.patient_name.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
         hbox2.Add(self.patient_name, proportion=1)
         vbox.Add(hbox2, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
 
@@ -38,6 +41,7 @@ class CertificateApp(wx.Frame):
         st3 = wx.StaticText(panel, label='Dirección:')
         hbox3.Add(st3, flag=wx.RIGHT, border=8)
         self.address = wx.TextCtrl(panel)
+        self.address.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
         hbox3.Add(self.address, proportion=1)
         vbox.Add(hbox3, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
 
@@ -46,6 +50,7 @@ class CertificateApp(wx.Frame):
         st4 = wx.StaticText(panel, label='Teléfono:')
         hbox4.Add(st4, flag=wx.RIGHT, border=8)
         self.phone_number = wx.TextCtrl(panel)
+        self.phone_number.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
         hbox4.Add(self.phone_number, proportion=1)
         vbox.Add(hbox4, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
 
@@ -54,6 +59,7 @@ class CertificateApp(wx.Frame):
         st5 = wx.StaticText(panel, label='Empresa:')
         hbox5.Add(st5, flag=wx.RIGHT, border=8)
         self.company = wx.TextCtrl(panel)
+        self.company.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
         hbox5.Add(self.company, proportion=1)
         vbox.Add(hbox5, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
 
@@ -62,6 +68,7 @@ class CertificateApp(wx.Frame):
         st6 = wx.StaticText(panel, label='Puesto de Trabajo:')
         hbox6.Add(st6, flag=wx.RIGHT, border=8)
         self.job_title = wx.TextCtrl(panel)
+        self.job_title.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
         hbox6.Add(self.job_title, proportion=1)
         vbox.Add(hbox6, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
 
@@ -70,6 +77,7 @@ class CertificateApp(wx.Frame):
         st7 = wx.StaticText(panel, label='Número de Cédula:')
         hbox7.Add(st7, flag=wx.RIGHT, border=8)
         self.id_number = wx.TextCtrl(panel)
+        self.id_number.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
         hbox7.Add(self.id_number, proportion=1)
         vbox.Add(hbox7, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
 
@@ -78,6 +86,7 @@ class CertificateApp(wx.Frame):
         st8 = wx.StaticText(panel, label='Diagnóstico (CIE10):')
         hbox8.Add(st8, flag=wx.RIGHT, border=8)
         self.cie10_name = wx.TextCtrl(panel)
+        self.cie10_name.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
         hbox8.Add(self.cie10_name, proportion=1)
         vbox.Add(hbox8, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
 
@@ -86,6 +95,7 @@ class CertificateApp(wx.Frame):
         st9 = wx.StaticText(panel, label='Código CIE10:')
         hbox9.Add(st9, flag=wx.RIGHT, border=8)
         self.cie10_code = wx.TextCtrl(panel)
+        self.cie10_code.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
         hbox9.Add(self.cie10_code, proportion=1)
         vbox.Add(hbox9, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
 
@@ -94,16 +104,22 @@ class CertificateApp(wx.Frame):
         st10 = wx.StaticText(panel, label='Días Otorgados:')
         hbox10.Add(st10, flag=wx.RIGHT, border=8)
         self.days_granted = wx.TextCtrl(panel)
+        self.days_granted.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
         hbox10.Add(self.days_granted, proportion=1)
         vbox.Add(hbox10, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
 
         # Checkboxes
         self.checkbox_illness = wx.CheckBox(panel, label='Enfermedad')
         self.checkbox_illness.SetBackgroundColour('#DCE3E8')
+        self.checkbox_illness.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
         vbox.Add(self.checkbox_illness, flag=wx.LEFT|wx.TOP, border=10)
+
         self.checkbox_symptoms = wx.CheckBox(panel, label='Presenta síntomas')
+        self.checkbox_symptoms.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
         vbox.Add(self.checkbox_symptoms, flag=wx.LEFT|wx.TOP, border=10)
+
         self.checkbox_isolation = wx.CheckBox(panel, label='Aislamiento/Teletrabajo')
+        self.checkbox_isolation.Bind(wx.EVT_KEY_DOWN, self.OnNavigate)
         vbox.Add(self.checkbox_isolation, flag=wx.LEFT|wx.TOP, border=10)
 
         # Generate Certificate Button
@@ -115,6 +131,27 @@ class CertificateApp(wx.Frame):
         btn_generate.Bind(wx.EVT_BUTTON, self.OnGenerateCertificate)
 
         panel.SetSizer(vbox)
+
+    def OnNavigate(self, event):
+        keycode = event.GetKeyCode()
+        navigation_map = {
+            wx.WXK_UP: -1,
+            wx.WXK_DOWN: 1
+        }
+
+        if keycode in navigation_map:
+            focusable_widgets = [
+                self.date, self.patient_name, self.address, self.phone_number,
+                self.company, self.job_title, self.id_number, self.cie10_name,
+                self.cie10_code, self.days_granted
+            ]
+            current_focus = wx.Window.FindFocus()
+            if current_focus in focusable_widgets:
+                current_index = focusable_widgets.index(current_focus)
+                next_index = (current_index + navigation_map[keycode]) % len(focusable_widgets)
+                focusable_widgets[next_index].SetFocus()
+        else:
+            event.Skip()
 
     def OnGenerateCertificate(self, event):
         try:
@@ -150,13 +187,12 @@ class CertificateApp(wx.Frame):
 
             # Aquí puedes agregar lógica adicional para rellenar el certificado con la información de los checkboxes si lo necesitas.
 
-            certificate.make_certificate()
+            certificate.save_certificate()
 
             # Mostrar mensaje de éxito
             wx.MessageBox('¡El certificado se ha generado correctamente!', 'Éxito', wx.OK | wx.ICON_INFORMATION)
         except Exception as e:
             wx.MessageBox(f'Ocurrió un error al generar el certificado: {e}', 'Error', wx.OK | wx.ICON_ERROR)
-            print(e)
 
 if __name__ == '__main__':
     app = wx.App()
